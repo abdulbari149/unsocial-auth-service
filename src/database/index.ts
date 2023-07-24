@@ -14,7 +14,7 @@ export const dataSource = new DataSource({
   logging: true,
   subscribers: [],
   entities: [],
-  migrations: [],
+  migrations: []
 });
 
 export const initializeDB = async () => {

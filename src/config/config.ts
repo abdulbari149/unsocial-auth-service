@@ -26,7 +26,8 @@ const envVarsSchema = z
     JWT_ACCESS_TOKEN_SECRET: z.string(),
     JWT_ACCESS_TOKEN_EXPIRESIN: z.string(),
     JWT_REFRESH_TOKEN_SECRET: z.string(),
-    JWT_REFRESH_TOKEN_EXPIRESIN: z.string()
+    JWT_REFRESH_TOKEN_EXPIRESIN: z.string(),
+    REDIS_URL: z.string()
   })
   .passthrough();
 
@@ -44,6 +45,9 @@ export default {
   backendDomain: envVars.BACKEND_DOMAIN,
   apiVersion: {
     v1: envVars.API_VERSION_V1
+  },
+  redis: {
+    url: envVars.REDIS_URL
   },
   db: {
     database: envVars.DB_NAME,
