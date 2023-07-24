@@ -12,12 +12,13 @@ module.exports = {
     project: './tsconfig.eslint.json',
   },
   rules: {
-    "sort-imports": ["error", {
-      "ignoreCase": false,
-      "ignoreDeclarationSort": false,
-      "ignoreMemberSort": false,
-      "memberSyntaxSortOrder": ["none", "all", "multiple", "single"],
-      "allowSeparatedGroups": false
-    }]
-  }
+    'import/no-extraneous-dependencies': 'off'
+  },
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+    },
+  },
 };
