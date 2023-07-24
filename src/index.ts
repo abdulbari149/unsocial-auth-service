@@ -5,7 +5,6 @@ import { initializeDB } from './database';
 import { redisClient } from './library/redis.library';
 import { exitServer, unexpectedErrorHandler } from './utils/errorHandlers';
 
-
 const main = async () => {
   await initializeDB();
   await redisClient.connect();

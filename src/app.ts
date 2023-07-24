@@ -1,7 +1,8 @@
-import express, { Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import path from 'path';
 import cors from 'cors';
 import morgan from './config/morgan';
+import { notFound, error } from './middlewares';
 
 const app = express();
 
@@ -21,10 +22,14 @@ app.use(morgan.errorHandler);
 // enable cors
 app.use(cors());
 
-app.get('/', (_req: Request, res: Response) => {
-  const message = 'Error: Occured';
-  res.locals.errorMessage = message;
-  res.status(500).send(message);
+app.get('/', (_req: Request, res: Response, _next: NextFunction) => {
+  res.send('Harwaqt App Backend Running!!!');
 });
+
+// not found middleware
+app.use(notFound);
+
+// error middleware
+app.use(error);
 
 export default app;
