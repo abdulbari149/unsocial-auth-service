@@ -1,10 +1,18 @@
 import express, { NextFunction, Request, Response } from 'express';
 import path from 'path';
 import cors from 'cors';
+import helmet from 'helmet';
+import compression from 'compression';
 import morgan from './config/morgan';
 import { notFound, error } from './middlewares';
 
 const app = express();
+
+// set security HTTP headers
+app.use(helmet());
+
+// gzip compression
+app.use(compression());
 
 // parse json request body
 app.use(express.json());
