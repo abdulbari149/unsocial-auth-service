@@ -1,20 +1,21 @@
-import express, { Request, Response } from 'express';
+import app from './app';
 import config from './config/config';
-import morgan from './config/morgan';
+import logger from './config/logger';
+import { initializeDB } from './database';
+import { redisClient } from './library/redis.library';
+import { exitServer, unexpectedErrorHandler } from './utils/errorHandlers';
 
-const app = express();
-const PORT = config.port;
+const main = async () => {
+  await initializeDB();
+  await redisClient.connect();
 
+  const server = app.listen(config.port, () => {
+    logger.info(`Server Started at ${config.backendDomain}`);
+  });
 
-app.use(morgan.successHandler)
-app.use(morgan.errorHandler)
+  process.on('uncaughtException', unexpectedErrorHandler(server));
+  process.on('unhandledRejection', unexpectedErrorHandler(server));
+  process.on('SIGTERM', exitServer(server));
+};
 
-app.get('/', (_req: Request, res: Response) => {
-  const message = 'Error: Occured'
-  res.locals.errorMessage = message
-  res.status(500).send(message);
-});
-
-app.listen(PORT, () => {
-  console.log(`Server started at http://localhost:${PORT}`);
-});
+void main();
