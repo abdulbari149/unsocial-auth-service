@@ -1,13 +1,21 @@
-import express, { Request, Response } from 'express';
+import app from './app';
+import config from './config/config';
+import logger from './config/logger';
+import { initializeDB } from './database';
+import { redisClient } from './library/redis.library';
+import { exitServer, unexpectedErrorHandler } from './utils/errorHandlers';
 
-const app = express();
+const main = async () => {
+  await initializeDB();
+  await redisClient.connect();
 
-app.get('/', (_req: Request, res: Response) => {
-  res.send('Hurray!!. Your server is up and running');
-});
+  const server = app.listen(config.port, () => {
+    logger.info(`Server Started at ${config.backendDomain}`);
+  });
 
-const PORT = 4000;
+  process.on('uncaughtException', unexpectedErrorHandler(server));
+  process.on('unhandledRejection', unexpectedErrorHandler(server));
+  process.on('SIGTERM', exitServer(server));
+};
 
-app.listen(PORT, () => {
-  console.log(`Server started at http://localhost:${PORT}`);
-});
+void main();
