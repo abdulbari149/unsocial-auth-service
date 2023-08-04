@@ -1,4 +1,4 @@
-import config from '../config/config';
+import config from '@/config/config';
 import * as redis from 'redis';
 
 export const redisClient = redis.createClient({
