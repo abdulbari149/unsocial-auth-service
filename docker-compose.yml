@@ -1,0 +1,31 @@
+name: 'unsocial-auth'
+version: '3.3'
+
+services:
+  postgres:
+    image: postgres:14.1-alpine
+    env_file: .env
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db_data:/var/lib/postgresql/data:rw
+    restart: unless-stopped
+    ports:
+      - "5433:5432"
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6380:6379"
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+
+volumes:
+  db_data:
+    driver: local
+  redis_data:
+    driver: local
+

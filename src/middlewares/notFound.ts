@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import ApiError from '../helpers/ApiError';
+import ApiError from '@/helpers/ApiError';
 import httpStatus from 'http-status';
 
 const notFound = (req: Request, _res: Response, next: NextFunction) => {

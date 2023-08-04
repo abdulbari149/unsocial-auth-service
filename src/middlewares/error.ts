@@ -2,10 +2,10 @@ import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 import { TypeORMError } from 'typeorm';
 import { ZodError } from 'zod';
-import ApiError from '../helpers/ApiError';
-import { AppLocals } from '../types/common';
-import zodErrorConverter from '../utils/zodError';
-import config from '../config/config';
+import ApiError from '@/helpers/ApiError';
+import { AppLocals } from '@/types/common';
+import zodErrorConverter from '@/utils/zodError';
+import config from '@/config/config';
 
 const error = (
   err: unknown,

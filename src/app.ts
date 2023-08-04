@@ -3,8 +3,10 @@ import path from 'path';
 import cors from 'cors';
 import helmet from 'helmet';
 import compression from 'compression';
-import morgan from './config/morgan';
-import { notFound, error } from './middlewares';
+import morgan from '@/config/morgan';
+import { notFound, error } from '@/middlewares';
+import config from '@/config/config';
+import routesV1 from '@/routes/v1';
 
 const app = express();
 
@@ -33,6 +35,8 @@ app.use(cors());
 app.get('/', (_req: Request, res: Response, _next: NextFunction) => {
   res.send('Harwaqt App Backend Running!!!');
 });
+
+app.use(config.apiVersion.v1, routesV1);
 
 // not found middleware
 app.use(notFound);

@@ -2,7 +2,7 @@ import morgan from 'morgan';
 import { Request, Response } from 'express';
 import config from './config';
 import logger from './logger';
-import { AppLocals } from '../types/common';
+import { AppLocals } from '@/types/common';
 
 morgan.token<
   Request<object, object, object, object, AppLocals>,

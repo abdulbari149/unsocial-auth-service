@@ -1,5 +1,5 @@
 import { IncomingMessage, Server, ServerResponse } from 'http';
-import logger from '../config/logger';
+import logger from '@/config/logger';
 
 type AppServer = Server<typeof IncomingMessage, typeof ServerResponse>;
 
